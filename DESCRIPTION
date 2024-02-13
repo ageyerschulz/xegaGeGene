@@ -16,6 +16,7 @@ Description: Grammatical evolution  (see O'Neil, M. and
         see Ryan, C., O'Neill, M., and Collins, J. J. (2018)
         <doi:10.1007/978-3-319-78717-6>.
 License: MIT + file LICENSE
+URL: <https://github.com/ageyerschulz/xegaGeGene>
 Encoding: UTF-8
 LazyData: false
 RoxygenNote: 7.2.3
