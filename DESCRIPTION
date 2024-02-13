@@ -1,0 +1,27 @@
+Package: xegaGeGene 
+Title: Grammatical Evolution 
+Version: 1.0.0.0
+Authors@R: 
+    person(given = "Andreas",
+           family = "Geyer-Schulz",
+           role = c("aut", "cre"),
+           email = "Andreas.Geyer-Schulz@kit.edu",
+          comment = c(ORCID = "0009-0000-5237-3579"))
+Description: Grammatical evolution  (see O'Neil, M. and 
+        Ryan, C.  (2003,ISBN:1-4020-7444-1)) uses decoders to 
+        convert binary (or integer genes) into programs.  
+        In addition, automatic determination of codon precision 
+        with a limited rule choice bias is provided.
+        For a recent survey of grammatical evolution, 
+        see Ryan, C., O'Neill, M., and Collins, J. J. (2018)
+        <doi:10.1007/978-3-319-78717-6>.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: false
+RoxygenNote: 7.2.3
+Suggests: testthat (>= 3.0.0)
+Imports:
+        numbers,
+	xegaSelectGene,
+	xegaBNF,
+	xegaDerivationTrees
