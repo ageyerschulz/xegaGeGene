@@ -9,7 +9,7 @@
 #' Map the bit strings of a binary gene to parameters in the interval
 #' \code{1:2^k}.
 #'
-#' @description \code{xegaGeGeneMapMod} maps the bit strings of a binary string 
+#' @description \code{xegaGeGeneMapMod()} maps the bit strings of a binary string 
 #'              to integers in the interval \code{1} to 
 #'              \code{lF$CodonPrecision()}. 
 #'              Bit vectors are mapped into equispaced numbers in the interval.
@@ -26,7 +26,7 @@
 #'              Tettamanzi, A. (Eds.): Genetic Programming.
 #'          Lecture Notes in Computer Science, Vol.2278, 
 #'              Springer, Heidelberg. 
-#'          DOI: 10.1007/3-540-45984-7_12 
+#'          <doi:10.1007/3-540-45984-7_12> 
 #'
 #' @param gene    Binary gene (the genotype).
 #' @param lF      Local configuration.
@@ -57,7 +57,7 @@ return(parm)
 #' Map the bit strings of a binary gene to integer parameters in the interval
 #' \code{1} to \code{numbers::mLCM(x) < 2^k}.
 #'
-#' @description \code{xegaGeGeneMapmLCM} 
+#' @description \code{xegaGeGeneMapmLCM()} 
 #'              maps the bit strings of a binary string 
 #'              to integers in the interval \code{1} to 
 #'              \code{lF$CodonPrecision()}. 
@@ -80,7 +80,7 @@ return(parm)
 #'              Tettamanzi, A. (Eds.): Genetic Programming.
 #'          Lecture Notes in Computer Science, Vol.2278, 
 #'              Springer, Heidelberg. 
-#'          DOI: 10.1007/3-540-45984-7_12 
+#'          <doi:10.1007/3-540-45984-7_12> 
 #'
 #' @param gene    Binary gene (the genotype).
 #' @param lF      Local configuration.
@@ -111,7 +111,7 @@ return(floor(parm))
 
 #' Configure the gene map function of a genetic algorithm for grammar evolution.
 #'
-#' @description \code{xegaGeGeneMapFactory} implements the selection
+#' @description \code{xegaGeGeneMapFactory()} implements the selection
 #'              of one of the GeneMap functions in this
 #'              package by specifying a text string.
 #'              The selection fails ungracefully (produces
@@ -121,8 +121,8 @@ return(floor(parm))
 #'              Current support:
 #'
 #'              \enumerate{
-#'              \item "Mod" returns \code{GeneMapMod}. (Default).
-#'              \item "Bucket" returns \code{GeneMapmLCM}.
+#'              \item "Mod" returns \code{GeneMapMod()}. (Default).
+#'              \item "Bucket" returns \code{GeneMapmLCM()}.
 #'              }
 #'
 #' @param method    String specifying the GeneMap function.
@@ -146,7 +146,7 @@ return(f)
 
 #' Decode a gene for a context free grammar.
 #'
-#' @description \code{xegaGeDecodeGene} decodes a binary gene with 
+#' @description \code{xegaGeDecodeGene()} decodes a binary gene with 
 #'              a context-free grammar.
 #'
 #' @details The codons (k-bit sequences) of the binary gene are determining
@@ -157,6 +157,8 @@ return(f)
 #'                incomplete derivation tree is built.
 #'          \item The leaves of the derivation tree are extracted.
 #'          }
+#'
+#'          It is not guaranteed that a complete derivation trees is returned.
 #'
 #' @param gene   Binary gene.
 #' @param lF     Local configuration of the genetic algorithm.

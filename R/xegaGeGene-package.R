@@ -5,8 +5,12 @@
 #' 
 #' \itemize{
 #'     \item Gene initialization.
+#'     \item Gene maps for the mod and (approximately) for the bucket rule.
 #'     \item Grammar-based decoders for binary coded genes.
-#'     \item Determining codon precision with a limited rule choice bias.
+#'     \item Analysis of the interaction of  codon precision 
+#'           with the rule choice bias for a given grammar.
+#'     \item Automatic determination of codon precision 
+#'           with a limited rule choice bias.
 #'         }
 #' 
 #' @references Ryan, Conor and Collins, J. J. AND Neill, Michael O. (1998)
@@ -28,6 +32,13 @@
 #'       Handbook of Grammatical Evolution.
 #'       Springer International Publishing, Cham.
 #'       <doi:10.1007/978-3-319-78717-6>      
+#' 
+#' @section Gene Initialization:
+#'
+#' The number of bits of a gene are specified by \code{lF$BitsOnGene()}.
+#' 
+#' The number of bits of a codon are specified 
+#'                by \code{lF$CodonPrecision()}.  
 #' 
 #' @section Binary Gene Representation:
 #'            

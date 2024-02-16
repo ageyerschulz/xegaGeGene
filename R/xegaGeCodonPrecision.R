@@ -12,7 +12,6 @@
 # grammatical evolution.
 #
 
-
 #' Computes the largest least common multiple of all prime factors 
 #' of the integers in the interval \code{1:m} for k-bit integers.
 #'  
@@ -67,7 +66,7 @@ tLCM<-function(k)
 #' @param  LHS   Vector of Integers. 
 #'               The left-hand side \code{G$LHS} of a grammar object \code{G}. 
 #'
-#' @return A vector of the number of choices for non-terminal symbols.
+#' @return Vector of the number of choices for non-terminal symbols.
 #'
 #' @family Utility
 #'
@@ -80,11 +79,15 @@ ChoiceVector<-function(LHS)
 
 #' Minimal precision of codon.
 #'
-#' @param  LHS    The left-hand side of a grammar object \code{G}. 
+#' @description The minimal precision of the codon needed for generating a working 
+#'              decoder for a context-free grammar \code{G}. However, the decoder 
+#'              has some choice bias which reduces the efficiency of grammar evolution. 
+#'
+#' @param  LHS    Vector of Integers. The left-hand side of a grammar object \code{G}. 
 #' @param  ...    Unused. Needed for common abstract interface of 
 #'                precision functions.
 #'
-#' @return The precision of a codon whose upper bound is the least power of 2 
+#' @return Integer.  The Precision of a codon whose upper bound is the least power of 2 
 #'         above the maximum number of rules for a non-terminal of a grammar.
 #'
 #' @family Precision
@@ -111,6 +114,7 @@ MinCodonPrecision<-function(LHS, ...)
 #'          See Keijzer et al. (2002).
 #'          However, if the mLCM and \code{2^k} are relative prime, it is impossible 
 #'          to find an unbiased binary coding.
+#'          The choice bias is considerable lower than for \code{MinCodonPrecision()}.
 #'
 #' @references Keijzer, M., O'Neill, M., Ryan, C. and Cattolico, M. (2002)
 #'          Grammatical Evolution Rules: The Mod and the Bucket Rule,
@@ -119,11 +123,11 @@ MinCodonPrecision<-function(LHS, ...)
 #'              Tettamanzi, A. (Eds.): Genetic Programming.
 #'          Lecture Notes in Computer Science, Vol.2278, 
 #'              Springer, Heidelberg. 
-#'          DOI: 10.1007/3-540-45984-7_12 
+#'          <doi:10.1007/3-540-45984-7_12> 
 #'
-#' @param  LHS     The left-hand side of a grammar object \code{G}. 
+#' @param  LHS   Vector of integers. The left-hand side of a grammar object \code{G}. 
 #'
-#' @return The least common multiple of the vector of the available 
+#' @return Integer. The least common multiple of the vector of the available 
 #'         rules for each non-terminal.
 #'
 #' @family Utility
@@ -139,11 +143,11 @@ mLCMG<-function(LHS)
 
 #' mLCMG precision of codon.
 #'
-#' @param  LHS    The left-hand side of a grammar object \code{G}. 
+#' @param  LHS    Vector of Integers. The left-hand side of a grammar object \code{G}. 
 #' @param  ...    Unused. Needed for common abstract interface of 
 #'                precision functions.
 #'
-#' @return The precision of a codon whose upper bound is larger than 
+#' @return Integer. The precision of a codon whose upper bound is larger than 
 #'         least common multiple of the prime factors of the 
 #'         vector of the available rules 
 #'         for each non-terminal of a grammar.
@@ -175,8 +179,16 @@ mLCMGCodonPrecision<-function(LHS, ...)
 #' @param cv         Choice vector of grammar.
 #' @param precision  Number of bits of codon.  
 #'
-#' @return 0
-#'
+#' @return Data frame with the following columns
+#'         \itemize{
+#'         \item \code{$precision}: Number of bits.
+#'         \item \code{$cv}:   i-th element of choice vector.
+#'         \item \code{$dp}:   Deviation from choice with equal probability for \code{$precision}.
+#'         \item \code{$dH}:   Entropy difference between choice with equal probability 
+#'                             and biased choice for \code{$precision}.
+#'         }
+
+#'        
 #' @family Diagnostics
 #'
 #' @examples
@@ -185,19 +197,10 @@ mLCMGCodonPrecision<-function(LHS, ...)
 #' @export
 CodonChoiceBiases<-function(cv,precision)
 {
+ df<-data.frame()
  entropy<-function(p) {sum(-p*log(p, 2))}
-sp<-getOption("scipen")
-options(scipen=999)
   for (i in (1:length(cv)))
   {
-# The following commented code uses outer products and vector operations
-#  a<-(1:(2^precision)) %% cv[i]
-#  d<-colSums(outer(a, (0:(cv[i]-1)), FUN="=="))
-#  l<-min(d)
-#  h<-max(d)
-#  cl<-sum(min(d)==d)
-#  ch<-sum(max(d)==d)
-# end of comment
   r<-(2^precision)/cv[i]  
   ub<-(2^precision) %% cv[i]
   lb<-cv[i]-ub
@@ -209,13 +212,11 @@ options(scipen=999)
   p<-d/sum(d)
   dp<-sum(abs(u-p))
  dH<-entropy(u)-entropy(p)
-# cat("   u:", u, "\n")
-# cat("   p:", p, "\n")
-# cat("   H(u):", entropy(u), " H(p):", entropy(p), "\n")
-cat("Bits:",precision, " Choice:", cv[i], " dP:", dp, " dH:", dH, "\n") 
+df<-rbind(df, c(precision, cv[i], dp, dH))
 }
-options(scipen=sp)
-invisible(0)
+colNames<-c("Bits", "Choices", "dP", "dh")
+colnames(df)<-colNames
+return(df)
 }
 
 #' Biases in Rule Choice (Deprecated)
@@ -227,7 +228,14 @@ invisible(0)
 #' @param cv         Choice vector of grammar.
 #' @param precision  Number of bits of codon.  
 #'
-#' @return 0
+#' @return Data frame with the following columns
+#'         \itemize{
+#'         \item \code{$precision}: Number of bits.
+#'         \item \code{$cv}:   i-th element of choice vector.
+#'         \item \code{$dp}:   Deviation from choice with equal probability for \code{$precision}.
+#'         \item \code{$dH}:   Entropy difference between choice with equal probability 
+#'                             and biased choice for \code{$precision}.
+#'         }
 #'
 #' @family Diagnostics
 #'
@@ -237,9 +245,8 @@ invisible(0)
 #' @export
 CodonChoiceBiasesDeprecated<-function(cv,precision)
 {
+ df<-data.frame()
  entropy<-function(p) {sum(-p*log(p, 2))}
-sp<-getOption("scipen")
-options(scipen=999)
   for (i in (1:length(cv)))
   {
 # The following code uses outer products and vector operations
@@ -255,20 +262,20 @@ options(scipen=999)
   p<-d/sum(d)
   dp<-sum(abs(u-p))
  dH<-entropy(u)-entropy(p)
-# cat("   u:", u, "\n")
-# cat("   p:", p, "\n")
-# cat("   H(u):", entropy(u), " H(p):", entropy(p), "\n")
-cat("Bits:",precision, " Choice:", cv[i], " dP:", dp, " dH:", dH, "\n") 
+df<-rbind(df, c(precision, cv[i], dp, dH))
 }
-options(scipen=sp)
-invisible(0)
+colNames<-c("Bits", "Choices", "dP", "dh")
+colnames(df)<-colNames
+return(df)
 }
 
-#' Codon precision with the choice bias below a threshold.   
+#' Compute codon precision with the choice bias of rules below a threshold.   
 #'
-#' @description 
+#' @description For automatic determination of the least codon precision for grammar evolution 
+#'              with an upper threshold on the choice bias of for the substitution of all
+#'              non-terminal symbols.    
 #'
-#' @param cv         Choice vector of grammar.
+#' @param cv         Choice vector of a context-free grammar.
 #' @param pCrit      Threhold for choice bias.
 #'
 #' @return Precision of codon.
@@ -331,10 +338,10 @@ CodonPrecisionWithThreshold<-function(LHS, pCrit)
 CodonPrecision(ChoiceVector(LHS), pCrit)
 }
 
-#' Configure the gene map function of a genetic algorithm for grammar evolution.
+#' Configure the function for computing the codon precision for grammar evolution.
 #'
-#' @description \code{xegaGeGeneMapFactory} implements the selection
-#'              of one of the GeneMap functions in this
+#' @description \code{xegaGePrecisionFactory()} implements the selection
+#'              of one of the functions for computing the codon precision in this
 #'              package by specifying a text string.
 #'              The selection fails ungracefully (produces
 #'              a runtime error), if the label does not match.
@@ -343,13 +350,15 @@ CodonPrecision(ChoiceVector(LHS), pCrit)
 #'              Current support:
 #'
 #'              \enumerate{
-#'              \item "Mod" returns \code{GeneMapMod}. (Default).
-#'              \item "Bucket" returns \code{GeneMapmLCM}.
+#'              \item "Min" returns \code{MinCodonPrecision}.
+#'                    Shortest coding, but some choice bias.
+#'              \item "LCM" returns \code{mLCMGCodonPrecision}. (Default)
+#'              \item "MaxPBias" returns \code{CodonPrecisionWithThreshold}.
 #'              }
 #'
 #' @param method    String specifying the GeneMap function.
 #'
-#' @return Gene map function for genes.
+#' @return Precision of codon function.
 #'
 #' @family Configuration
 #'

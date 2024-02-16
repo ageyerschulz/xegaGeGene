@@ -9,7 +9,7 @@ Authors@R:
           comment = c(ORCID = "0009-0000-5237-3579"))
 Description: Grammatical evolution  (see O'Neil, M. and 
         Ryan, C.  (2003,ISBN:1-4020-7444-1)) uses decoders to 
-        convert binary (or integer genes) into programs.  
+        convert linear (binary or integer genes) into programs.  
         In addition, automatic determination of codon precision 
         with a limited rule choice bias is provided.
         For a recent survey of grammatical evolution, 

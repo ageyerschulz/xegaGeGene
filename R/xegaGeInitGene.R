@@ -31,10 +31,11 @@
 #'         \item \code{$evalFail}:  FALSE. Set by the error handler(s)
 #'                                  in package \code{xegaEvalGene} 
 #'                                  in the case of failure.
-#'         \item \code{$fit}:       the fitness
-#'         \item \code{$gene1}:      a binary gene 
+#'         \item \code{$fit}:       Fitness vector.
+#'         \item \code{$gene1}:     Binary gene.
 #'         }
-#' @family gene layer
+#'
+#' @family Gene Generation
 #'
 #' @examples
 #' xegaGeInitGene(lFxegaGeGene)
