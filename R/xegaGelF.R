@@ -11,6 +11,35 @@
 
 #' The local function list lFxegaGeGene.
 #'
+#' @description
+#' We enhance the configurability of our code by introducing 
+#'  a function factory. The  function factory contains
+#'  all the functions that are needed for defining
+#'  local functions in genetic operators. The local function  
+#'  list keeps the signatures of functions (e.g. mutation functions)
+#'  uniform and small. At the same time, variants of functions
+#'  can use different local functions. 
+#'
+#' @details
+#'    We use the local function list for 
+#'    \enumerate{
+#'    \item
+#'       replacing all constants by constant functions.
+#'       
+#'       Rationale: We need one formal argument (the local function list lF)
+#'       and we can dispatch multiple functions. E.g.  \code{lF$verbose()}
+#'   \item    
+#'       dynamically binding a local function with a definition from a
+#'       proper function factory. E.g., the selection methods 
+#'       \code{lF$SelectGene()} and \code{lF$SelectMate()}.
+#'       
+#'  \item gene representations which require special functions to handle them:
+#'        For example,
+#'        \code{lF$InitGene()}, \code{lF$DecodeGene()}, \code{lF$EvalGene()},
+#'        \code{lF$ReplicateGene()}, ...
+#'       
+#'  } 
+#'
 #' @importFrom xegaBNF compileBNF
 #' @importFrom xegaBNF booleanGrammar
 #' @importFrom xegaSelectGene parm

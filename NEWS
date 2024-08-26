@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------
+  xegaGeGene                                                       News
+-------------------------------------------------------------------------
+
+Version 1.0.0.1 (2024-03-04)
+
+- ColNames in CodonChoiceBiases and 
+  CodonChoiceBiases deprecated changed to standard names.
+- Multiple improvements in the domentation of functions.
+

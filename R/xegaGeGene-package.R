@@ -1,7 +1,7 @@
 
 #' The \code{xegaGeGene} package 
 #' provides functions implementing
-#' grammatical evolution with binary coded genes:
+#' grammatical evolution with binary-coded genes:
 #' 
 #' \itemize{
 #'     \item Gene initialization.
@@ -44,20 +44,20 @@
 #'            
 #' A binary gene is a named list:
 #'   \itemize{
-#'    \item $gene1      the gene must be a binary vector.
-#'    \item $fit        the fitness value of the gene
+#'    \item \code{$gene1}:  The gene must be a binary vector.
+#'    \item \code{$fit}:        The fitness value of the gene
 #'                      (for EvalGeneDet and EvalGeneU) or
 #'                      the mean fitness (for stochastic functions
 #'                      evaluated with EvalGeneStoch).
-#'    \item $evaluated  has the gene been evaluated?
-#'    \item $evalFail   has the evaluation of the gene failed?
-#'    \item $var        the cumulative variance of the fitness 
+#'    \item \code{$evaluated}:  Has the gene been evaluated?
+#'    \item \code{$evalFail}:   Has the evaluation of the gene failed?
+#'    \item \code{$var}:        The cumulative variance of the fitness 
 #'                      of all evaluations of a gene.
 #'                      (For stochastic functions)
-#'    \item $sigma      the standard deviation of the fitness of 
+#'    \item \code{$sigma}:      The standard deviation of the fitness of 
 #'                      all evaluations of a gene.
 #'                      (For stochastic functions)
-#'    \item $obs        the number evaluations of a gene.
+#'    \item \code{$obs}:        The number of evaluations of a gene.
 #'                      (For stochastic functions)
 #'   }
 #'
@@ -66,14 +66,14 @@
 #' A problem environment \code{penv} must provide:
 #'   \itemize{
 #'     \item \code{$f(parameters, gene, lF)}: 
-#'   Function with a real parameter vector as first argument 
+#'   Function with a real parameter vector as the first argument 
 #'   which returns a gene 
 #'   with evaluated fitness.
 #'   
-#'   \item $genelength(): The number of bits of the binary coded
-#'                        real parameter vector. Used in \code{InitGene}.
+#'   \item $genelength(): The number of bits of the binary-coded
+#'                        integer parameter vector. Used in \code{InitGene}.
 #'     \item $bitlength(): A vector specifying the number of bits 
-#'                        used for coding each real parameter.
+#'                        used for coding each integer parameter.
 #'                        If \code{penv$bitlength()[1]} is \code{20}, 
 #'                        then \code{parameters[1]} is coded by 20 bits.
 #'           Used in \code{GeneMap}.
@@ -97,29 +97,29 @@
 #' provides a function call interface and configuration support
 #' for several algorithms: genetic algorithms (sga), 
 #' permutation-based genetic algorithms (sgPerm), 
-#' derivation free algorithms as e.g. differential evolution (sgde), 
+#' derivation-free algorithms as e.g. differential evolution (sgde), 
 #' grammar-based genetic programming (sgp) and grammatical evolution
 #' (sge). 
 #'
 #' \item
 #' The population layer (package \code{xegaPopulation}) contains
-#' population related functionality as well as support for 
+#' population-related functionality as well as support for 
 #' population statistics dependent adaptive mechanisms and parallelization.
 #'
 #' \item 
-#' The gene layer is split in a representation independent and 
-#' a representation dependent part:
+#' The gene layer is split in a representation-independent and 
+#' a representation-dependent part:
 #' \enumerate{
 #' \item 
-#'  The representation indendent part (package \code{xegaSelectGene})
+#'  The representation-indendent part (package \code{xegaSelectGene})
 #'  is responsible for variants of selection operators, evaluation 
 #'  strategies for genes, as well as profiling and timing capabilities.        
 #' \item 
-#'  The representation dependent part consists of the following packages: 
+#'  The representation-dependent part consists of the following packages: 
 #' \itemize{
 #' \item \code{xegaGaGene} for binary coded genetic algorithms.
 #' \item \code{xegaPermGene} for permutation-based genetic algorithms.
-#' \item \code{xegaDfGene} for derivation free algorithms as e.g. 
+#' \item \code{xegaDfGene} for derivation-free algorithms as e.g. 
 #'                         differential evolution.
 #' \item \code{xegaGpGene} for grammar-based genetic algorithms.
 #' \item \code{xegaGeGene} for grammatical evolution algorithms.
@@ -127,7 +127,7 @@
 #' The packages \code{xegaDerivationTrees} and \code{xegaBNF} support
 #' the last two packages:
 #' \code{xegaBNF} essentially provides a grammar compiler and 
-#' \code{xegaDerivationTrees} an abstract data type for derivation trees.
+#' \code{xegaDerivationTrees} is an abstract data type for derivation trees.
 #' }} 
 #'
 #' @family Package Description

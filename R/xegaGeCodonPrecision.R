@@ -84,10 +84,10 @@ ChoiceVector<-function(LHS)
 #'              has some choice bias which reduces the efficiency of grammar evolution. 
 #'
 #' @param  LHS    Vector of Integers. The left-hand side of a grammar object \code{G}. 
-#' @param  ...    Unused. Needed for common abstract interface of 
+#' @param  ...    Unused. Needed for the common abstract interface of 
 #'                precision functions.
 #'
-#' @return Integer.  The Precision of a codon whose upper bound is the least power of 2 
+#' @return Integer.  The precision of a codon whose upper bound is the least power of 2 
 #'         above the maximum number of rules for a non-terminal of a grammar.
 #'
 #' @family Precision
@@ -114,7 +114,7 @@ MinCodonPrecision<-function(LHS, ...)
 #'          See Keijzer et al. (2002).
 #'          However, if the mLCM and \code{2^k} are relative prime, it is impossible 
 #'          to find an unbiased binary coding.
-#'          The choice bias is considerable lower than for \code{MinCodonPrecision()}.
+#'          The choice bias is considerably lower than for \code{MinCodonPrecision()}.
 #'
 #' @references Keijzer, M., O'Neill, M., Ryan, C. and Cattolico, M. (2002)
 #'          Grammatical Evolution Rules: The Mod and the Bucket Rule,
@@ -144,10 +144,10 @@ mLCMG<-function(LHS)
 #' mLCMG precision of codon.
 #'
 #' @param  LHS    Vector of Integers. The left-hand side of a grammar object \code{G}. 
-#' @param  ...    Unused. Needed for common abstract interface of 
+#' @param  ...    Unused. Needed for the common abstract interface of 
 #'                precision functions.
 #'
-#' @return Integer. The precision of a codon whose upper bound is larger than 
+#' @return Integer. The precision of a codon whose upper bound is larger than the
 #'         least common multiple of the prime factors of the 
 #'         vector of the available rules 
 #'         for each non-terminal of a grammar.
@@ -182,7 +182,7 @@ mLCMGCodonPrecision<-function(LHS, ...)
 #' @return Data frame with the following columns
 #'         \itemize{
 #'         \item \code{$precision}: Number of bits.
-#'         \item \code{$cv}:   i-th element of choice vector.
+#'         \item \code{$cv}:   i-th element of the choice vector.
 #'         \item \code{$dp}:   Deviation from choice with equal probability for \code{$precision}.
 #'         \item \code{$dH}:   Entropy difference between choice with equal probability 
 #'                             and biased choice for \code{$precision}.
@@ -214,7 +214,7 @@ CodonChoiceBiases<-function(cv,precision)
  dH<-entropy(u)-entropy(p)
 df<-rbind(df, c(precision, cv[i], dp, dH))
 }
-colNames<-c("Bits", "Choices", "dP", "dh")
+colNames<-c("Bits", "Choices", "dp", "dH")
 colnames(df)<-colNames
 return(df)
 }
@@ -231,7 +231,7 @@ return(df)
 #' @return Data frame with the following columns
 #'         \itemize{
 #'         \item \code{$precision}: Number of bits.
-#'         \item \code{$cv}:   i-th element of choice vector.
+#'         \item \code{$cv}:   i-th element of choice the vector.
 #'         \item \code{$dp}:   Deviation from choice with equal probability for \code{$precision}.
 #'         \item \code{$dH}:   Entropy difference between choice with equal probability 
 #'                             and biased choice for \code{$precision}.
@@ -264,7 +264,7 @@ CodonChoiceBiasesDeprecated<-function(cv,precision)
  dH<-entropy(u)-entropy(p)
 df<-rbind(df, c(precision, cv[i], dp, dH))
 }
-colNames<-c("Bits", "Choices", "dP", "dh")
+colNames<-c("Bits", "Choices", "dp", "dH")
 colnames(df)<-colNames
 return(df)
 }
@@ -272,11 +272,11 @@ return(df)
 #' Compute codon precision with the choice bias of rules below a threshold.   
 #'
 #' @description For automatic determination of the least codon precision for grammar evolution 
-#'              with an upper threshold on the choice bias of for the substitution of all
+#'              with an upper threshold on the choice bias for the substitution of all
 #'              non-terminal symbols.    
 #'
 #' @param cv         Choice vector of a context-free grammar.
-#' @param pCrit      Threhold for choice bias.
+#' @param pCrit      Threshold for choice bias.
 #'
 #' @return Precision of codon.
 #'
@@ -318,13 +318,15 @@ return(max(precs))
 #' @description  The choice bias is the sum of the absolute values of the 
 #'               difference between a k equally probable choices and the 
 #'               probability distribution of the modulo choice rule. 
+#'      
+#' @details For the computation of the precision, the function \code{CodonPrecision()} is used.
 #'
 #' @param  LHS    The left-hand side of a grammar object \code{G}. 
-#' @param  pCrit  Threshold for the choice bias for single non-terminal. 
+#' @param  pCrit  Threshold for the choice bias for a single non-terminal. 
 #'
 #' @return The precision of a codon which guarantees that the choice bias 
-#'         for all nonterminals is below a probability threshold of
-#'         \code{PCrit}.
+#'         for all non-terminals is below a probability threshold of
+#'         \code{pCrit}.
 #'
 #' @family Precision
 #'

@@ -64,12 +64,12 @@ return(parm)
 #'              Bit vectors are mapped into equispaced numbers in the interval.
 #'
 #' @details Using the interval of \code{1} to \code{numbers::mLCM(1:m)}
-#'          provides a the least common multiple of all prime factors 
+#'          provides the least common multiple of all prime factors 
 #'          of the numbers in the interval \code{1:m}.
 #'          This corresponds to the bucket rule of Keijzer et al. (2002).
 #'          For 16-bit precision, the highest number of rules
 #'          for the same non-terminal symbols is 12.
-#'          For 8-bit precision,this reduces to 6.
+#'          For 8-bit precision, this reduces to 6.
 #'          With 64-bit integer arithmetic, the bucket rule works up to 
 #'          42 rules starting with the same non-terminal.
 #'
@@ -121,8 +121,8 @@ return(floor(parm))
 #'              Current support:
 #'
 #'              \enumerate{
-#'              \item "Mod" returns \code{GeneMapMod()}. (Default).
-#'              \item "Bucket" returns \code{GeneMapmLCM()}.
+#'              \item "Mod" returns \code{xegaGeGeneMapMod()}. (Default).
+#'              \item "Bucket" returns \code{xegaGeGeneMapmLCM()}.
 #'              }
 #'
 #' @param method    String specifying the GeneMap function.
@@ -144,12 +144,12 @@ if (!exists("f", inherits=FALSE))
 return(f)
 }
 
-#' Decode a gene for a context free grammar.
+#' Decode a binary gene for a context-free grammar.
 #'
 #' @description \code{xegaGeDecodeGene()} decodes a binary gene with 
 #'              a context-free grammar.
 #'
-#' @details The codons (k-bit sequences) of the binary gene are determining
+#' @details The codons (k-bit sequences) of the binary gene determine
 #'          the choices of non-terminal symbols of a depth-first left-to-right
 #'          tree traversal. Decoding works in 2 steps:
 #'          \enumerate{
