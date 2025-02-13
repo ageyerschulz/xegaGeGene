@@ -139,7 +139,9 @@ MinCodonPrecision<-function(LHS, ...)
 #' @importFrom numbers mLCM
 #' @export
 mLCMG<-function(LHS)
-{numbers::mLCM(ChoiceVector(LHS))}
+{v<-ChoiceVector(LHS)
+ if (length(v)==1) {return(v)} else {return(numbers::mLCM(v))}
+}
 
 #' mLCMG precision of codon.
 #'

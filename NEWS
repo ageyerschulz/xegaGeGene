@@ -8,3 +8,12 @@ Version 1.0.0.1 (2024-03-04)
   CodonChoiceBiases deprecated changed to standard names.
 - Multiple improvements in the domentation of functions.
 
+Version 1.0.0.2 (2025-02-13)
+
+- mLCMG: Bug fixed for special case of only one prime factor.
+- xegaGeDecodeGeneDT:  Decoder for decoding random integer vectors as programs.
+                 May fail.
+- xegaGeDecodeGene:  Decoder for decoding random integer vectors as programs.
+                 Guaranteed to work.
+- xegaGeDecodeGeneFactory: Configuration of decoder.
+

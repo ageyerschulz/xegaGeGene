@@ -159,6 +159,50 @@ return(f)
 #'          }
 #'
 #'          It is not guaranteed that a complete derivation trees is returned.
+#'          Therefore, the generated program may fail. 
+#'
+#' @param gene   Binary gene.
+#' @param lF     Local configuration of the genetic algorithm.
+#'
+#' @return Decoded gene (a program)
+#'
+#' @family Decoder
+#'
+#' @examples
+#' lFxegaGeGene$GeneMap<-xegaGeGeneMapFactory("Mod")
+#' gene<-xegaGeInitGene(lFxegaGeGene)
+#' xegaGeDecodeGeneDT(gene, lFxegaGeGene)
+#'
+#' @importFrom xegaDerivationTrees generateDerivationTree
+#' @importFrom xegaDerivationTrees decodeDT
+#' @export
+xegaGeDecodeGeneDT<-function(gene, lF)
+{
+  kvec<-lF$GeneMap(gene$gene1, lF)
+  t<-xegaDerivationTrees::generateDerivationTree(
+  sym=lF$Grammar$Start, kvec=kvec, G=lF$Grammar, maxdepth=lF$maxdepth)
+  return(xegaDerivationTrees::decodeDT(t$tree, lF$Grammar$ST)) 
+}
+
+#' Decode a binary gene for a context-free grammar.
+#'
+#' @description \code{xegaGeDecodeGene()} decodes a binary gene with 
+#'              a context-free grammar.
+#'
+#' @details The codons (k-bit sequences) of the binary gene determine
+#'          the choices of non-terminal symbols of a depth-first left-to-right
+#'          tree traversal. Decoding works in 3 steps:
+#'          \enumerate{
+#'          \item From the binary gene and a grammar a potentially 
+#'                incomplete derivation tree is built.
+#'          \item The leaves of the derivation tree are extracted.
+#'          \item By reusing the random integer vector and by using 
+#'                a non-recursive grammar, all non-terminals are 
+#'                randomly completed.
+#'          }
+#'
+#'          It is guaranteed that a complete and syntactically correct
+#'          program is returned.
 #'
 #' @param gene   Binary gene.
 #' @param lF     Local configuration of the genetic algorithm.
@@ -173,14 +217,54 @@ return(f)
 #' xegaGeDecodeGene(gene, lFxegaGeGene)
 #'
 #' @importFrom xegaDerivationTrees generateDerivationTree
-#' @importFrom xegaDerivationTrees decodeDT
+#' @importFrom xegaDerivationTrees decodeAndFixDT
 #' @export
 xegaGeDecodeGene<-function(gene, lF)
 {
   kvec<-lF$GeneMap(gene$gene1, lF)
   t<-xegaDerivationTrees::generateDerivationTree(
   sym=lF$Grammar$Start, kvec=kvec, G=lF$Grammar, maxdepth=lF$maxdepth)
-  return(xegaDerivationTrees::decodeDT(t$tree, lF$Grammar$ST)) 
+  if (t$complete)
+  {return(xegaDerivationTrees::decodeDT(t$tree, lF$Grammar$ST))} else
+  {return(xegaDerivationTrees::decodeAndFixDT(t$tree, lF$Grammar, kvec))}
 }
 
+#' Configure the decoder function of a genetic algorithm.
+#'
+#' @description \code{xegaGeDecodeGeneFactory()} implements the selection
+#'              of one of a decoder function
+#'              by specifying a text string.
+#'              The selection fails ungracefully (produces
+#'              a runtime error) if the label does not match.
+#'              The functions are specified locally.
+#'
+#'              Current support:
+#'
+#'              \enumerate{
+#'              \item "DecodeGene" returns \code{xegaGeDecodeGene()}. (Default).
+#'              \item "DecodeGeneDT" returns \code{xegaGeDecodeGeneDT()}.
+#'                    This decoder does not guarantee complete programs.
+#'              }
+#'
+#' @param method A string specifying a decoder for genes
+#'
+#' @return A decoder for genes.
+#'
+#' @family Configuration
+#'
+#' @examples
+#' lFxegaGeGene$GeneMap<-xegaGeGeneMapFactory("Mod")
+#' gene<-xegaGeInitGene(lFxegaGeGene)
+#' DecodeGene<-xegaGeDecodeGeneFactory("DecodeGene")
+#' DecodeGene(gene, lFxegaGeGene)
+#' DecodeGeneDT<-xegaGeDecodeGeneFactory("DecodeGeneDT")
+#' DecodeGeneDT(gene, lFxegaGeGene)
+#' @export
+xegaGeDecodeGeneFactory<-function(method="DecodeGene") {
+if (method=="DecodeGeneDT") {f<-xegaGeDecodeGeneDT}
+if (method=="DecodeGene") {f<-xegaGeDecodeGene}
+if (!exists("f", inherits=FALSE))
+        {stop("sge DecodeGene label ", method, " does not exist")}
+return(f)
+}
 

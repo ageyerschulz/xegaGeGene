@@ -1,6 +1,6 @@
 Package: xegaGeGene 
 Title: Grammatical Evolution 
-Version: 1.0.0.1
+Version: 1.0.0.2
 Authors@R: 
     person(given = "Andreas",
            family = "Geyer-Schulz",
@@ -16,10 +16,10 @@ Description: Grammatical evolution  (see O'Neil, M. and
         see Ryan, C., O'Neill, M., and Collins, J. J. (2018)
         <doi:10.1007/978-3-319-78717-6>.
 License: MIT + file LICENSE
-URL: <https://github.com/ageyerschulz/xegaGeGene>
+URL: https://github.com/ageyerschulz/xegaGeGene
 Encoding: UTF-8
 LazyData: false
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Suggests: testthat (>= 3.0.0)
 Imports:
         numbers,
