@@ -178,7 +178,7 @@ return(f)
 #' @export
 xegaGeDecodeGeneDT<-function(gene, lF)
 {
-  kvec<-lF$GeneMap(gene$gene1, lF)
+  kvec<-floor(lF$GeneMap(gene$gene1, lF))
   t<-xegaDerivationTrees::generateDerivationTree(
   sym=lF$Grammar$Start, kvec=kvec, G=lF$Grammar, maxdepth=lF$maxdepth)
   return(xegaDerivationTrees::decodeDT(t$tree, lF$Grammar$ST)) 

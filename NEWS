@@ -17,3 +17,10 @@ Version 1.0.0.2 (2025-02-13)
                  Guaranteed to work.
 - xegaGeDecodeGeneFactory: Configuration of decoder.
 
+Version 1.0.0.3 (2025-04-15)
+
+- xegaGeDecodeGeneDT: Floor of kvec. Ensures integer vector.
+- xegaGeDecodeGene:   Floor of kvec. Ensures integer vector.
+
+
+
